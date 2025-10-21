@@ -1,71 +1,35 @@
-#!/usr/bin/env bash
-set -euo pipefail
+# Streamlit — Analyse d'enquêtes
+Synthèse + Chatbot + Storytelling + Analyse verbatims
 
-APP_FILE="${1:-app.py}"
-PY_BIN="${PY_BIN:-python3}"
-VENV_DIR="${VENV_DIR:-.venv}"
+## Nouveautés
 
-echo "==> Vérification de Python..."
-if ! command -v "$PY_BIN" >/dev/null 2>&1; then
-  echo "Erreur: Python introuvable. Installez Python 3 et réessayez."
-  exit 1
-fi
+### Chatbot
+- Analyses descriptives déterministes :
+  - Comptages
+  - Répartition Top-K
+  - Valeurs uniques
+  - Recherche "contiennent ..."
+  - Pourcentage d’une valeur
+  - Statistiques numériques
+- RAG / LLM pour l’analyse des questions qualitatives
 
-echo "==> Création de l'environnement virtuel ($VENV_DIR)..."
-"$PY_BIN" -m venv "$VENV_DIR"
+### Fonctionnalités principales
+- Comptage exact : "Combien ont répondu … <valeur>" sur toute la colonne
+- Suggestion automatique de colonnes à ignorer (IDs, noms, e-mails...) avec option d’application / réinitialisation
+- Analyse des verbatims :
+  - Tri décroissant des labels
+  - Filtres par labels / sentiments
+  - Emojis d’humeur
+  - Sentiments en camembert
+  - Pagination (20 réponses / page)
+  - Graphiques persistants
+- Mini-synthèse :
+  - Wordcloud sur colonnes texte
+  - Camembert pour le sentiment (masqué si aucun résultat)
 
-# Activer l'environnement selon OS / shell
-ACTIVATE=""
-if [ -f "$VENV_DIR/bin/activate" ]; then
-  ACTIVATE="$VENV_DIR/bin/activate"
-elif [ -f "$VENV_DIR/Scripts/activate" ]; then
-  ACTIVATE="$VENV_DIR/Scripts/activate"
-fi
+## Prérequis
 
-# shellcheck disable=SC1090
-source "$ACTIVATE"
+Installer les dépendances nécessaires :
 
-echo "==> Mise à jour de pip..."
-python -m pip install --upgrade pip
-
-echo "==> Installation des dépendances..."
-pip install \
-  streamlit \
-  pandas \
-  numpy \
-  scikit-learn \
-  unidecode \
-  openai \
-  openpyxl \
-  altair \
-  wordcloud \
-  markdown
-
-echo "==> Vérification du fichier de l'application: $APP_FILE"
-if [ ! -f "$APP_FILE" ]; then
-  echo "Attention: $APP_FILE n'existe pas dans le dossier courant."
-  echo "Création d'un squelette minimal ($APP_FILE) pour démarrer."
-  cat > "$APP_FILE" <<'PY'
-import streamlit as st
-
-st.set_page_config(page_title="Analyse d'enquêtes", layout="wide")
-
-st.title("Streamlit — Analyse d'enquêtes")
-st.markdown("""
-Cette application attend vos données et votre logique d'analyse.
-Remplacez ce squelette par votre implémentation.
-""")
-
-st.header("Fonctionnalités (à implémenter)")
-st.markdown("""
-- Chatbot : analyses descriptives déterministes et RAG/LLM pour questions qualitatives  
-- Comptage exact sur colonnes  
-- Suggestion de colonnes à ignorer  
-- Analyse des verbatims (tri, filtres, sentiments, pagination, graphiques persistants)  
-- Mini-synthèse (wordcloud, camembert de sentiment)
-""")
-PY
-fi
-
-echo "==> Lancement de Streamlit..."
-exec streamlit run "$APP_FILE"
+```bash
+pip install streamlit pandas numpy scikit-learn unidecode openai openpyxl altair wordcloud markdown
