@@ -1,35 +1,35 @@
-# Streamlit — Analyse d'enquêtes
-Synthèse + Chatbot + Storytelling + Analyse verbatims
+# Streamlit — Survey Analysis
+Summary + Chatbot + Storytelling + Verbatim Analysis
 
-## Nouveautés
+## Features
 
 ### Chatbot
-- Analyses descriptives déterministes :
-  - Comptages
-  - Répartition Top-K
-  - Valeurs uniques
-  - Recherche "contiennent ..."
-  - Pourcentage d’une valeur
-  - Statistiques numériques
-- RAG / LLM pour l’analyse des questions qualitatives
+- Deterministic descriptive analyses:
+  - Counts
+  - Top-K distribution
+  - Unique values
+  - Search "contain ..."
+  - Percentage of a value
+  - Numerical statistics
+- RAG / LLM for qualitative questions
 
-### Fonctionnalités principales
-- Comptage exact : "Combien ont répondu … <valeur>" sur toute la colonne
-- Suggestion automatique de colonnes à ignorer (IDs, noms, e-mails...) avec option d’application / réinitialisation
-- Analyse des verbatims :
-  - Tri décroissant des labels
-  - Filtres par labels / sentiments
-  - Emojis d’humeur
-  - Sentiments en camembert
-  - Pagination (20 réponses / page)
-  - Graphiques persistants
-- Mini-synthèse :
-  - Wordcloud sur colonnes texte
-  - Camembert pour le sentiment (masqué si aucun résultat)
+### Main functionalities
+- Exact count: "How many answered … <value>" across the entire column
+- Automatic suggestion of columns to ignore (IDs, names, emails...) with apply / reset option
+- Verbatim analysis:
+  - Descending sort of labels
+  - Filters by labels / sentiments
+  - Mood indicators
+  - Sentiment pie chart
+  - Pagination (20 responses per page)
+  - Persistent charts
+- Mini-summary:
+  - Wordcloud for text columns
+  - Sentiment pie chart (hidden if no results)
 
-## Prérequis
+## Requirements
 
-Installer les dépendances nécessaires :
+Install the required dependencies:
 
 ```bash
 pip install streamlit pandas numpy scikit-learn unidecode openai openpyxl altair wordcloud markdown
